@@ -490,7 +490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac55c65305fd99545ab1c952d5a8460f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 1
+  radius: 3
   keepOnScreen: 1
   isOnScreen: 1
   camWidth: 0
@@ -1653,13 +1653,8 @@ MonoBehaviour:
   uiHighScore: {fileID: 1577926984}
   prefubEnemies:
   - {fileID: 1694757007908987496, guid: edd8880c8d4db1842b799d41f64647fb, type: 3}
-  - {fileID: 1694757007908987496, guid: edd8880c8d4db1842b799d41f64647fb, type: 3}
-  - {fileID: 1694757007908987496, guid: edd8880c8d4db1842b799d41f64647fb, type: 3}
-  - {fileID: 2296993682657470904, guid: fc967efabb266be49812d69185ccb87d, type: 3}
   - {fileID: 2296993682657470904, guid: fc967efabb266be49812d69185ccb87d, type: 3}
   - {fileID: 3248686316512176441, guid: 5c773b49905d8da4dbe06d42cb8655b4, type: 3}
-  - {fileID: 3248686316512176441, guid: 5c773b49905d8da4dbe06d42cb8655b4, type: 3}
-  - {fileID: 6795644544060913261, guid: c563f5e9a9e8ca548803886b0819f5d3, type: 3}
   - {fileID: 6795644544060913261, guid: c563f5e9a9e8ca548803886b0819f5d3, type: 3}
   - {fileID: 2481114303371981184, guid: 740ed2be0dd22594dba6a7ea051f5a1d, type: 3}
   enemySpawnPerSecond: 0.4
@@ -1694,6 +1689,11 @@ MonoBehaviour:
     velocity: 0
   prefabPowerUp: {fileID: 1007969376828032759, guid: e8b32778f1c76074f925272be478d615, type: 3}
   powerUpFrequency: 010000000100000001000000020000000200000006000000
+  diffXML: {fileID: 4900000, guid: e08b0c502f5023b4588f91017199ec55, type: 3}
+  level:
+    waves: []
+    timeLimit: -1
+    name: 
 --- !u!1 &1018629096
 GameObject:
   m_ObjectHideFlags: 0
