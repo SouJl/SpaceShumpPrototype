@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
     public int score = 100;
     public float showDamageDuration = 0.1f;
     public float poweUpDropChance = 1f;
+    public ParticleSystem particlePrefub;
 
     [Header("Set Dynamically: Enemy")]
     public Color[] originalColors;
@@ -36,7 +37,7 @@ public class Enemy : MonoBehaviour
         bndCheck = GetComponent<BoundsCheck>();
         materials = Utils.GetAllMaterials(gameObject);
         originalColors = new Color[materials.Length];
-        for(int i =0; i<materials.Length; i++)
+        for (int i = 0; i < materials.Length; i++)
         {
             originalColors[i] = materials[i].color;
         }
@@ -45,11 +46,11 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         Move();
-        if(showingDamage && Time.time > damageDoneTime)
+        if (showingDamage && Time.time > damageDoneTime)
         {
             UnShownDamage();
         }
-        if(bndCheck!=null && bndCheck.offDown)
+        if (bndCheck != null && bndCheck.offDown)
         {
             Destroy(gameObject);
         }
@@ -77,7 +78,7 @@ public class Enemy : MonoBehaviour
                     }
                     ShowDamage();
                     health -= Main.GetWeaponDefinition(p.Type).damageOnHit;
-                    if(health <= 0)
+                    if (health <= 0)
                     {
                         if (!notifiedOfDestruction)
                         {
@@ -85,6 +86,9 @@ public class Enemy : MonoBehaviour
                         }
                         notifiedOfDestruction = true;
                         Destroy(gameObject);
+                        particlePrefub = Instantiate(particlePrefub);
+                        particlePrefub.transform.position = pos;
+                        particlePrefub.Play();
                     }
                     Destroy(otherGo);
                     break;
@@ -99,7 +103,7 @@ public class Enemy : MonoBehaviour
 
     void ShowDamage()
     {
-        foreach(var m in materials)
+        foreach (var m in materials)
         {
             m.color = Color.red;
         }

@@ -152,6 +152,9 @@ public class Enemy4 : Enemy
                     {
                         Main.S.ShipDestroyed(this);
                         Destroy(gameObject);
+                        particlePrefub = Instantiate(particlePrefub);
+                        particlePrefub.transform.position = pos;
+                        particlePrefub.Play();
                     }
                     Destroy(other);
                     break;

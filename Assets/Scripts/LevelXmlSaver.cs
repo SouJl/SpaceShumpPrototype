@@ -17,16 +17,12 @@ public class LevelXmlSaver
     /// <returns></returns>
     public static LevelXmlSaver Load(string filePath)
     {
-        if (!File.Exists(filePath))
-        {
-            return null;
-        }
+        TextAsset asset = Resources.Load(filePath) as TextAsset;
+        if(asset == null) return null;
 
+        Stream stream = new MemoryStream(asset.bytes);
         var serializer = new XmlSerializer(typeof(LevelXmlSaver));
-        using (var stream = new FileStream(filePath, FileMode.Open))
-        {
-            return serializer.Deserialize(stream) as LevelXmlSaver;
-        }
+        return serializer.Deserialize(stream) as LevelXmlSaver;
     }
 
     /// <summary>
@@ -34,10 +30,10 @@ public class LevelXmlSaver
     /// </summary>
     public void Save(string filePath)
     {
-        var serializer = new XmlSerializer(typeof(LevelXmlSaver));
+      /*  var serializer = new XmlSerializer(typeof(LevelXmlSaver));
         using (var stream = new FileStream(filePath, FileMode.Create))
         {
             serializer.Serialize(stream, this);
-        }
+        }*/
     }
 }

@@ -30,10 +30,8 @@ public class Main : MonoBehaviour
     private int _score = 0;
     private int _highScore = 1000;
     private const int _maxScore = 1000000;
-    private LevelXmlSaver _levelSettings;
 
     private string[] _difficulties = { "easy", "normal", "hard" };
-    private int _currWave = 0;
 
     // Start is called before the first frame update
     void Awake()
@@ -51,9 +49,8 @@ public class Main : MonoBehaviour
         PlayerPrefs.SetInt("HighScore", _highScore);
 
         int _difficulty = PlayerPrefs.GetInt("Difficulty");
-        _levelSettings = new LevelXmlSaver();
         LoadEnemyPresset(_difficulties[_difficulty]);
-        Invoke("SpawnWave", 1f / level.waves[_currWave].delayBeforeWave);
+        Invoke("SpawnWave", 0);
     }
 
     void Start()
@@ -69,7 +66,7 @@ public class Main : MonoBehaviour
 
     public void SpawnWave()
     {
-        StartCoroutine(SpawnEnemy(level.waves[_currWave]));
+        StartCoroutine(SpawnEnemy(level.waves[Random.Range(0, level.waves.Length)]));
     }
 
     IEnumerator SpawnEnemy(Wave wave)
@@ -95,18 +92,11 @@ public class Main : MonoBehaviour
             }
             else
             {
-                _currWave++;
-                if (_currWave == level.waves.Length)
-                {
-                    _currWave = 0;
-                    print("CONGRATULATION");
-                    break;
-                }
+                if(wave.delayNextWave)
+                    Invoke("SpawnWave", 1f / wave.delayBeforeWave);
                 else
-                {
-                    Invoke("SpawnWave", 1f / level.waves[_currWave].delayBeforeWave);
-                    break;
-                }
+                    Invoke("SpawnWave", 0);
+                break;
             }
         }
     }
@@ -160,10 +150,10 @@ public class Main : MonoBehaviour
 
     void LoadEnemyPresset(string difficulty)
     {
-        level = LevelXmlSaver.Load(Path.Combine(Application.dataPath, "Resources/difficalty.xml")).Levels.Where(l => l.name == difficulty).Single();
+        level = LevelXmlSaver.Load(diffXML.name).Levels.Where(l => l.name == difficulty).Single();
         foreach (var wave in level.waves)
         {
-            wave.InitShipsPrefub(wave.ships.Length);
+            wave.InitShipsPrefub();
             for (int i = 0; i < wave.ships.Length; i++)
             {
                 wave.SetShipPrefub(prefubEnemies.Where(e => e.name == wave.ships[i]).Single());

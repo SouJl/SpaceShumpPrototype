@@ -69,6 +69,7 @@ MonoBehaviour:
   score: 150
   showDamageDuration: 0.1
   poweUpDropChance: 0.5
+  particlePrefub: {fileID: 5694507663349456307, guid: 2243742d1c0c45841899c78f7f16439a, type: 3}
   originalColors: []
   materials: []
   showingDamage: 0

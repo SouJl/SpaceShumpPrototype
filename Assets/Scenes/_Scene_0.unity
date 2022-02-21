@@ -1664,7 +1664,7 @@ MonoBehaviour:
     letter: B
     color: {r: 0, g: 0.49411768, b: 1, a: 1}
     projectilePrefab: {fileID: 3651673873484865210, guid: c2ed1c40ca8fa6e4493091ffc6ea6599, type: 3}
-    projectileColor: {r: 0, g: 0.4932413, b: 1, a: 1}
+    projectileColor: {r: 0.7058824, g: 0.78431374, b: 0.19607843, a: 1}
     damageOnHit: 2
     continuousDamage: 0
     delayBetweenShots: 0.2
@@ -1673,7 +1673,7 @@ MonoBehaviour:
     letter: S
     color: {r: 0.5188679, g: 0.26234967, b: 0.12971698, a: 1}
     projectilePrefab: {fileID: 3651673873484865210, guid: c2ed1c40ca8fa6e4493091ffc6ea6599, type: 3}
-    projectileColor: {r: 0.5176471, g: 0.2627451, b: 0.12941177, a: 1}
+    projectileColor: {r: 0.7058824, g: 0.78431374, b: 0.19607843, a: 1}
     damageOnHit: 2
     continuousDamage: 0
     delayBetweenShots: 0.4
@@ -1689,7 +1689,7 @@ MonoBehaviour:
     velocity: 0
   prefabPowerUp: {fileID: 1007969376828032759, guid: e8b32778f1c76074f925272be478d615, type: 3}
   powerUpFrequency: 010000000100000001000000020000000200000006000000
-  diffXML: {fileID: 4900000, guid: e08b0c502f5023b4588f91017199ec55, type: 3}
+  diffXML: {fileID: 4900000, guid: 675263a97faa1a347b3c5070bf86c28d, type: 3}
   level:
     waves: []
     timeLimit: -1

@@ -12,22 +12,28 @@ public class Wave
     public bool delayNextWave = false;
 
     Queue<GameObject> shipsPrefub;
-
-    public void InitShipsPrefub(int count) => shipsPrefub = new Queue<GameObject>();
+    private int shipsCount = 0;
+    public void InitShipsPrefub() => shipsPrefub = new Queue<GameObject>();
 
     public GameObject GetShipPrefub()
     {
         if (shipsPrefub != null)
-            return shipsPrefub.Dequeue();
+        {
+            shipsCount--;
+            return shipsPrefub.Peek();
+        }  
         else return null;
     }
     public void SetShipPrefub(GameObject prefub)
     {
         if (shipsPrefub != null)
+        {
             shipsPrefub.Enqueue(prefub);
+            shipsCount++;
+        }         
     }
 
-    public bool IsEnd() => shipsPrefub.Count > 0 ? false : true; 
+    public bool IsEnd() => shipsCount > 0 ? false : true; 
 
 }
 
