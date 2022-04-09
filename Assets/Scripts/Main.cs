@@ -66,16 +66,17 @@ public class Main : MonoBehaviour
 
     public void SpawnWave()
     {
-        StartCoroutine(SpawnEnemy(level.waves[Random.Range(0, level.waves.Length)]));
+        int ndx = Random.Range(0, level.waves.Length);
+        StartCoroutine(SpawnEnemy(level.waves[ndx]));
     }
 
     IEnumerator SpawnEnemy(Wave wave)
     {
         for (; ; )
         {
-            if (!wave.IsEnd())
+            if (!wave.IsEnd)
             {
-                var go = Instantiate<GameObject>(wave.GetShipPrefub());
+                var go = Instantiate(wave.GetShipPrefub());
                 float enemyPadding = enemyDefaultPadding;
                 if (go.GetComponent<BoundsCheck>() != null)
                 {
@@ -92,6 +93,7 @@ public class Main : MonoBehaviour
             }
             else
             {
+                wave.IsEnd = false;
                 if(wave.delayNextWave)
                     Invoke("SpawnWave", 1f / wave.delayBeforeWave);
                 else
@@ -144,8 +146,8 @@ public class Main : MonoBehaviour
             _highScore = _score;
             PlayerPrefs.SetInt("HighScore", _highScore);
         }
-        uiTextScore.text = $"Score: {_score}";
-        uiHighScore.text = $"HighScore: {_highScore}";
+        uiTextScore.text = $"{_score}";
+        uiHighScore.text = $"{_highScore}";
     }
 
     void LoadEnemyPresset(string difficulty)

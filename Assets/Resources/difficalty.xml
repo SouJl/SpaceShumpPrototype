@@ -11,7 +11,43 @@
 						<ship>Enemy0</ship>
 						<ship>Enemy0</ship>
 						<ship>Enemy0</ship>
+						<ship>Enemy0</ship>
+					</ships>
+					<delayNextWave>false</delayNextWave>
+				</wave>
+				<wave>
+					<delayBeforeWave>1</delayBeforeWave>
+					<ships>
+						<ship>Enemy1</ship>
+						<ship>Enemy1</ship>
+						<ship>Enemy1</ship>
+						<ship>Enemy1</ship>
+						<ship>Enemy1</ship>
+						<ship>Enemy1</ship>
+					</ships>
+					<delayNextWave>false</delayNextWave>
+				</wave>
+				<wave>
+					<delayBeforeWave>1</delayBeforeWave>
+					<ships>
+						<ship>Enemy0</ship>
+						<ship>Enemy1</ship>
+						<ship>Enemy0</ship>
 						<ship>Enemy2</ship>
+						<ship>Enemy2</ship>
+						<ship>Enemy2</ship>
+					</ships>
+					<delayNextWave>false</delayNextWave>
+				</wave>
+				<wave>
+					<delayBeforeWave>1</delayBeforeWave>
+					<ships>
+						<ship>Enemy3</ship>
+						<ship>Enemy1</ship>
+						<ship>Enemy1</ship>
+						<ship>Enemy2</ship>
+						<ship>Enemy2</ship>
+						<ship>Enemy3</ship>
 					</ships>
 					<delayNextWave>false</delayNextWave>
 				</wave>

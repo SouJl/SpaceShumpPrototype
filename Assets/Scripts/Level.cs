@@ -11,29 +11,37 @@ public class Wave
     public string[] ships;
     public bool delayNextWave = false;
 
-    Queue<GameObject> shipsPrefub;
+    List<GameObject> shipsPrefub;
     private int shipsCount = 0;
-    public void InitShipsPrefub() => shipsPrefub = new Queue<GameObject>();
+    [System.NonSerialized]
+    public bool IsEnd = false;
+    public void InitShipsPrefub() => shipsPrefub = new List<GameObject>();
 
     public GameObject GetShipPrefub()
     {
         if (shipsPrefub != null)
         {
             shipsCount--;
-            return shipsPrefub.Peek();
-        }  
+            var result = shipsPrefub[shipsCount];
+            if (shipsCount == 0)
+            {
+                shipsCount = shipsPrefub.Count;
+                IsEnd = true;
+            }
+            return result;
+        }
         else return null;
     }
     public void SetShipPrefub(GameObject prefub)
     {
         if (shipsPrefub != null)
         {
-            shipsPrefub.Enqueue(prefub);
+            shipsPrefub.Add(prefub);
             shipsCount++;
-        }         
+        }
     }
 
-    public bool IsEnd() => shipsCount > 0 ? false : true; 
+    // public bool IsEnd() => shipsCount > 0 ? false : true; 
 
 }
 

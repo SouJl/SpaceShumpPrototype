@@ -12,15 +12,18 @@ public class Hero : MonoBehaviour
     public float speed = 30;
     public float rollMult = -45;
     public float pitchMult = 30;
-    public float gameRestartDelay = 2f;
     public GameObject projectilePrefab;
     public float projectileSpeed = 40;
     public Weapon[] weapons;
     public Text uiCurrWeapon;
- 
+    public Text uiShieldLevel;
+
     [Header("Set Dynamically")]
     [SerializeField]
     private float _shieldLevel = 1;
+    
+    [System.NonSerialized]
+    public bool isAlive;
 
     public float shieldLevel
     {
@@ -31,7 +34,7 @@ public class Hero : MonoBehaviour
             if (value < 0)
             {
                 Destroy(this.gameObject);
-                Main.S.DelayedRestart(gameRestartDelay);
+                isAlive = false;
             }
         }
     }
@@ -56,6 +59,7 @@ public class Hero : MonoBehaviour
         ClearWeapons();
         weapons[0].SetType(WeaponType.blaster);
         UpdateGUI();
+        isAlive = true;
     }
 
 
@@ -70,7 +74,7 @@ public class Hero : MonoBehaviour
         transform.position = pos;
 
         transform.rotation = Quaternion.Euler(yAxis * pitchMult, xAxis * rollMult, 0);
-        if(Input.GetAxis("Jump") == 1 && fireDelegate != null)
+        if (Input.GetAxis("Jump") == 1 && fireDelegate != null)
         {
             fireDelegate();
         }
@@ -81,7 +85,7 @@ public class Hero : MonoBehaviour
         var projGo = Instantiate<GameObject>(projectilePrefab);
         projGo.transform.position = transform.position;
         Rigidbody rigidB = projGo.GetComponent<Rigidbody>();
-        
+
         Projectile proj = projGo.GetComponent<Projectile>();
         proj.Type = WeaponType.missle;
         float tSpeed = Main.GetWeaponDefinition(proj.Type).velocity;
@@ -99,12 +103,13 @@ public class Hero : MonoBehaviour
             return;
         }
         lastTriggerGo = go;
-        if(go.tag == "Enemy")
+        if (go.tag == "Enemy")
         {
             shieldLevel--;
+            UpdateGUI();
             Destroy(go);
         }
-        else if(go.tag == "PowerUp")
+        else if (go.tag == "PowerUp")
         {
             AbsorbPoweUp(go);
         }
@@ -140,6 +145,7 @@ public class Hero : MonoBehaviour
             case WeaponType.shield:
                 {
                     shieldLevel++;
+                    UpdateGUI();
                     break;
                 }
         }
@@ -148,7 +154,7 @@ public class Hero : MonoBehaviour
 
     Weapon GetEmptyWeaponSlot()
     {
-        for(int i =0; i< weapons.Length; i++)
+        for (int i = 0; i < weapons.Length; i++)
         {
             if (weapons[i].Type == WeaponType.none)
                 return weapons[i];
@@ -158,7 +164,7 @@ public class Hero : MonoBehaviour
 
     void ClearWeapons()
     {
-        foreach(var w in weapons)
+        foreach (var w in weapons)
         {
             w.SetType(WeaponType.none);
         }
@@ -166,6 +172,7 @@ public class Hero : MonoBehaviour
 
     void UpdateGUI()
     {
-        uiCurrWeapon.text = $"Weapon: {weapons[0].Type} x{weapons.Where(w=>w.Type != WeaponType.none).ToList().Count}";
+        uiCurrWeapon.text = $"{weapons[0].Type} x{weapons.Where(w => w.Type != WeaponType.none).ToList().Count}";
+        uiShieldLevel.text = $"Shield Level: {Mathf.Clamp(shieldLevel, 0, 4)}";
     }
 }
