@@ -121,13 +121,19 @@ public class Main : MonoBehaviour
 
     public void DelayedRestart(float delay)
     {
-        Invoke("Restart", delay);
+        //Invoke("Restart", delay);
+        Invoke("ToMainMenu", delay);
     }
 
     public void Restart()
     {
         SceneManager.LoadScene("_Scene_0");
     }
+
+    public void ToMainMenu()
+    {
+        SceneManager.LoadScene("MenuScene");
+    } 
 
     static public WeaponDefinition GetWeaponDefinition(WeaponType wt)
     {

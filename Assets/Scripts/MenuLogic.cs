@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,7 +10,7 @@ public class MenuLogic : MonoBehaviour
     public Button exitButton;
     public Button nextDiffButton;
     public Button prevDiffButton;
-    public Text diffDescription;
+    public TextMeshProUGUI diffDescription;
 
     
     string[] _difficulties = { "easy", "normal", "hard" };    
