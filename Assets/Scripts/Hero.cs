@@ -112,6 +112,7 @@ public class Hero : MonoBehaviour
             shieldLevel--;
             UpdateGUI();
             Destroy(go);
+            AudioManager.instance.Play("ShieldHit");
         }
         else if (go.tag == "PowerUp")
         {
