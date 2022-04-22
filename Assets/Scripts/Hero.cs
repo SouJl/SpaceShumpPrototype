@@ -17,6 +17,7 @@ public class Hero : MonoBehaviour
     public Weapon[] weapons;
     public Text uiCurrWeapon;
     public Text uiShieldLevel;
+    public ParticleSystem particlePrefub;
 
     [Header("Set Dynamically")]
     [SerializeField]
@@ -33,8 +34,11 @@ public class Hero : MonoBehaviour
             _shieldLevel = Mathf.Min(value, 4);
             if (value < 0)
             {
-                Destroy(this.gameObject);
+                Destroy(gameObject);
                 isAlive = false;
+                particlePrefub = Instantiate(particlePrefub);
+                particlePrefub.transform.position = gameObject.transform.position;
+                particlePrefub.Play();
             }
         }
     }

@@ -10,20 +10,25 @@ public class GameOverUI : MonoBehaviour
 
     [Header("Set Dynamically")]
     public Text txt;
- 
+
+    private bool _isExecute;
 
     void Awake()
     {
         txt = GetComponent<Text>();
         txt.text = "";
+        _isExecute = false;
     }
 
     void Update()
     {
         if (Hero.S.isAlive) return;
-
+        if (_isExecute) return;
         txt.text = "Game Over";
-        Main.S.DelayedRestart(gameRestartDelay);
+        AudioManager.instance.Stop("Theme");
+        AudioManager.instance.Play("GameOver");
+        Main.S.DelayedRestart(gameRestartDelay + AudioManager.instance.GetSoundLength("GameOver"));
+        _isExecute = true;
     }
     
 

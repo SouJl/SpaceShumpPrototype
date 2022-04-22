@@ -30,6 +30,10 @@ public class MenuLogic : MonoBehaviour
         PlayerPrefs.SetInt("Difficulty", _difficalty);
     }
 
+    private void Start()
+    {
+        AudioManager.instance.Play("Theme");
+    }
 
     private void LateUpdate()
     {
@@ -39,7 +43,7 @@ public class MenuLogic : MonoBehaviour
     void StartGame()
     {
         PlayerPrefs.SetInt("Difficulty", _difficalty);
-        SceneManager.LoadScene(1);
+        GameSceneLoader.Instance.LoadScene(1);
     }
 
     void UppDiff()

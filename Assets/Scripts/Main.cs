@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -26,7 +25,7 @@ public class Main : MonoBehaviour
     public TextAsset diffXML;
     public Level level;
 
-    private BoundsCheck bndCheck;
+    private BoundsCheck _bndCheck;
     private int _score = 0;
     private int _highScore = 1000;
     private const int _maxScore = 1000000;
@@ -37,7 +36,7 @@ public class Main : MonoBehaviour
     void Awake()
     {
         S = this;
-        bndCheck = GetComponent<BoundsCheck>();
+        _bndCheck = GetComponent<BoundsCheck>();
         WEAP_DICT = new Dictionary<WeaponType, WeaponDefinition>();
         foreach (WeaponDefinition def in weaponDefinitions)
             WEAP_DICT[def.type] = def;
@@ -50,6 +49,10 @@ public class Main : MonoBehaviour
 
         int _difficulty = PlayerPrefs.GetInt("Difficulty");
         LoadEnemyPresset(_difficulties[_difficulty]);
+
+        if (!AudioManager.instance.IsSoundOn("Theme"))
+            AudioManager.instance.Play("Theme");
+
         Invoke("SpawnWave", 0);
     }
 
@@ -72,6 +75,7 @@ public class Main : MonoBehaviour
 
     IEnumerator SpawnEnemy(Wave wave)
     {
+        //Оптимизировать
         for (; ; )
         {
             if (!wave.IsEnd)
@@ -84,17 +88,17 @@ public class Main : MonoBehaviour
                 }
 
                 var pos = Vector3.zero;
-                float xMin = -bndCheck.camWidth + enemyPadding;
-                float xMax = bndCheck.camWidth - enemyPadding;
+                float xMin = -_bndCheck.camWidth + enemyPadding;
+                float xMax = _bndCheck.camWidth - enemyPadding;
                 pos.x = Random.Range(xMin, xMax);
-                pos.y = bndCheck.camHeight + enemyPadding;
+                pos.y = _bndCheck.camHeight + enemyPadding;
                 go.transform.position = pos;
                 yield return new WaitForSeconds(1f / enemySpawnPerSecond);
             }
             else
             {
                 wave.IsEnd = false;
-                if(wave.delayNextWave)
+                if (wave.delayNextWave)
                     Invoke("SpawnWave", 1f / wave.delayBeforeWave);
                 else
                     Invoke("SpawnWave", 0);
@@ -115,6 +119,7 @@ public class Main : MonoBehaviour
             pu.SetType(puType);
             pu.transform.position = e.transform.position;
         }
+        AudioManager.instance.Play("EnemyDestroyed");
         _score += e.score;
         UpdateGUI();
     }
@@ -133,7 +138,7 @@ public class Main : MonoBehaviour
     public void ToMainMenu()
     {
         SceneManager.LoadScene("MenuScene");
-    } 
+    }
 
     static public WeaponDefinition GetWeaponDefinition(WeaponType wt)
     {
