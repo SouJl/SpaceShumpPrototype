@@ -35,7 +35,7 @@
 						<ship>Enemy0</ship>
 						<ship>Enemy2</ship>
 						<ship>Enemy2</ship>
-						<ship>Enemy2</ship>
+						<ship>Enemy1</ship>
 					</ships>
 					<delayNextWave>false</delayNextWave>
 				</wave>
@@ -47,7 +47,7 @@
 						<ship>Enemy1</ship>
 						<ship>Enemy2</ship>
 						<ship>Enemy2</ship>
-						<ship>Enemy3</ship>
+						<ship>Enemy2</ship>
 					</ships>
 					<delayNextWave>false</delayNextWave>
 				</wave>
@@ -63,13 +63,45 @@
 						<ship>Enemy0</ship>
 						<ship>Enemy2</ship>
 						<ship>Enemy3</ship>
+						<ship>Enemy0</ship>
+						<ship>Enemy2</ship>
+						<ship>Enemy3</ship>
 					</ships>
 					<delayNextWave>false</delayNextWave>
 				</wave>
 				<wave>
 					<delayBeforeWave>1</delayBeforeWave>
 					<ships>
+						<ship>Enemy1</ship>
+						<ship>Enemy1</ship>
+						<ship>Enemy1</ship>
+						<ship>Enemy3</ship>
+						<ship>Enemy3</ship>
+						<ship>Enemy3</ship>
+					</ships>
+					<delayNextWave>false</delayNextWave>
+				</wave>
+				<wave>
+					<delayBeforeWave>1</delayBeforeWave>
+					<ships>
+						<ship>Enemy2</ship>
+						<ship>Enemy1</ship>
+						<ship>Enemy2</ship>
+						<ship>Enemy3</ship>
+						<ship>Enemy2</ship>
+						<ship>Enemy3</ship>
+					</ships>
+					<delayNextWave>false</delayNextWave>
+				</wave>
+				<wave>
+					<delayBeforeWave>1</delayBeforeWave>
+					<ships>
+						<ship>Enemy2</ship>
 						<ship>Enemy4</ship>
+						<ship>Enemy1</ship>
+						<ship>Enemy1</ship>
+						<ship>Enemy1</ship>
+						<ship>Enemy1</ship>
 					</ships>
 					<delayNextWave>false</delayNextWave>
 				</wave>
@@ -82,10 +114,48 @@
 				<wave>
 					<delayBeforeWave>1</delayBeforeWave>
 					<ships>
+						<ship>Enemy2</ship>
+						<ship>Enemy3</ship>
+						<ship>Enemy2</ship>
+						<ship>Enemy4</ship>
 						<ship>Enemy4</ship>
 						<ship>Enemy3</ship>
+					</ships>
+					<delayNextWave>false</delayNextWave>
+				</wave>
+				<wave>
+					<delayBeforeWave>1</delayBeforeWave>
+					<ships>
+						<ship>Enemy2</ship>
+						<ship>Enemy3</ship>
+						<ship>Enemy3</ship>
+						<ship>Enemy2</ship>
 						<ship>Enemy3</ship>
 						<ship>Enemy4</ship>
+					</ships>
+					<delayNextWave>false</delayNextWave>
+				</wave>
+				<wave>
+					<delayBeforeWave>1</delayBeforeWave>
+					<ships>
+						<ship>Enemy3</ship>
+						<ship>Enemy3</ship>
+						<ship>Enemy3</ship>
+						<ship>Enemy2</ship>
+						<ship>Enemy2</ship>
+						<ship>Enemy2</ship>
+					</ships>
+					<delayNextWave>false</delayNextWave>
+				</wave>
+				<wave>
+					<delayBeforeWave>1</delayBeforeWave>
+					<ships>
+						<ship>Enemy4</ship>
+						<ship>Enemy3</ship>
+						<ship>Enemy4</ship>
+						<ship>Enemy2</ship>
+						<ship>Enemy4</ship>
+						<ship>Enemy3</ship>
 					</ships>
 					<delayNextWave>false</delayNextWave>
 				</wave>

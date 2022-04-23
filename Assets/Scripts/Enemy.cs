@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
 
     [Header("Set in Inspector: Enemy")]
     public float spped = 10f;
-    public float foreRate = 0.3f;
+    public float fireRate = 0.3f;
     public float health = 10;
     public int score = 100;
     public float showDamageDuration = 0.1f;

@@ -159,8 +159,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5e7e38472aa92b4cb8580e4c663bd1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spped: 10
-  foreRate: 0.3
+  spped: 13
+  fireRate: 0.3
   health: 10
   score: 150
   showDamageDuration: 0.1

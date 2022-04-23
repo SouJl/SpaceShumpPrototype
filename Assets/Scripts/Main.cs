@@ -13,21 +13,26 @@ public class Main : MonoBehaviour
     [Header("Set in Inspector")]
     public Text uiTextScore;
     public Text uiHighScore;
+    public Text uiDifficalty;
+    [Space(10)]
     public GameObject[] prefubEnemies;
     public float enemySpawnPerSecond = 0.5f;
     public float enemyDefaultPadding = 1.5f;
     public WeaponDefinition[] weaponDefinitions;
     public GameObject prefabPowerUp;
+    [Space(10)]
     public WeaponType[] powerUpFrequency = new WeaponType[]
     {
         WeaponType.blaster, WeaponType.blaster, WeaponType.spread, WeaponType.shield
     };
+    [Space(10)]
     public TextAsset diffXML;
     public Level level;
+    [System.NonSerialized]
+    public int score = 0;
 
     private BoundsCheck _bndCheck;
-    private int _score = 0;
-    private int _highScore = 1000;
+    private int _highScore = 2500;
     private const int _maxScore = 1000000;
 
     private string[] _difficulties = { "easy", "normal", "hard" };
@@ -47,8 +52,10 @@ public class Main : MonoBehaviour
         }
         PlayerPrefs.SetInt("HighScore", _highScore);
 
-        int _difficulty = PlayerPrefs.GetInt("Difficulty");
-        LoadEnemyPresset(_difficulties[_difficulty]);
+        int currDifficulty = PlayerPrefs.GetInt("Difficulty");
+        LoadEnemyPresset(_difficulties[currDifficulty]);
+        uiDifficalty.text = _difficulties[currDifficulty];
+
 
         if (!AudioManager.instance.IsSoundOn("Theme"))
             AudioManager.instance.Play("Theme");
@@ -76,35 +83,28 @@ public class Main : MonoBehaviour
     IEnumerator SpawnEnemy(Wave wave)
     {
         //Оптимизировать
-        for (; ; )
+        while (!wave.IsEnd)
         {
-            if (!wave.IsEnd)
+            var go = Instantiate(wave.GetShipPrefub());
+            float enemyPadding = enemyDefaultPadding;
+            if (go.GetComponent<BoundsCheck>() != null)
             {
-                var go = Instantiate(wave.GetShipPrefub());
-                float enemyPadding = enemyDefaultPadding;
-                if (go.GetComponent<BoundsCheck>() != null)
-                {
-                    enemyPadding = Mathf.Abs(go.GetComponent<BoundsCheck>().radius);
-                }
+                enemyPadding = Mathf.Abs(go.GetComponent<BoundsCheck>().radius);
+            }
 
-                var pos = Vector3.zero;
-                float xMin = -_bndCheck.camWidth + enemyPadding;
-                float xMax = _bndCheck.camWidth - enemyPadding;
-                pos.x = Random.Range(xMin, xMax);
-                pos.y = _bndCheck.camHeight + enemyPadding;
-                go.transform.position = pos;
-                yield return new WaitForSeconds(1f / enemySpawnPerSecond);
-            }
-            else
-            {
-                wave.IsEnd = false;
-                if (wave.delayNextWave)
-                    Invoke("SpawnWave", 1f / wave.delayBeforeWave);
-                else
-                    Invoke("SpawnWave", 0);
-                break;
-            }
+            var pos = Vector3.zero;
+            float xMin = -_bndCheck.camWidth + enemyPadding;
+            float xMax = _bndCheck.camWidth - enemyPadding;
+            pos.x = Random.Range(xMin, xMax);
+            pos.y = _bndCheck.camHeight + enemyPadding;
+            go.transform.position = pos;
+            yield return new WaitForSeconds(1f / enemySpawnPerSecond);
         }
+        wave.IsEnd = false;
+        if (wave.delayNextWave)
+            Invoke("SpawnWave", 1f / wave.delayBeforeWave);
+        else
+            Invoke("SpawnWave", 0);
     }
 
     public void ShipDestroyed(Enemy e)
@@ -120,7 +120,7 @@ public class Main : MonoBehaviour
             pu.transform.position = e.transform.position;
         }
         AudioManager.instance.Play("EnemyDestroyed");
-        _score += e.score;
+        score += e.score;
         UpdateGUI();
     }
 
@@ -150,14 +150,14 @@ public class Main : MonoBehaviour
 
     void UpdateGUI()
     {
-        if (_score > _maxScore) _score = _maxScore;
+        if (score > _maxScore) score = _maxScore;
 
-        if (_score > _highScore)
+        if (score > _highScore)
         {
-            _highScore = _score;
+            _highScore = score;
             PlayerPrefs.SetInt("HighScore", _highScore);
         }
-        uiTextScore.text = $"{_score}";
+        uiTextScore.text = $"{score}";
         uiHighScore.text = $"{_highScore}";
     }
 
